@@ -3,4 +3,4 @@
 Full featured iOS app showcasing jsonplaceholder users API
 
 - Written in Swift
-- Unit Tested
+- Unit Tested (Not yet 🤣)
