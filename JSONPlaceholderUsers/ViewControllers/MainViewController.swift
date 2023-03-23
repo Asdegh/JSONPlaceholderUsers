@@ -105,8 +105,10 @@ public final class MainViewController: UIViewController,
 		searchController.searchBar.placeholder = "Search"
 	}
 	// MARK: - Exit function
-	@objc private func dismissSelf() {
+	@objc
+	private func dismissSelf() {
 		dismiss(animated: true, completion: nil)
+
 	}
 	// MARK: - Fetch users
 	private func fetchUsers(completion: @escaping(Result<[Users], Error>) -> Void) throws {

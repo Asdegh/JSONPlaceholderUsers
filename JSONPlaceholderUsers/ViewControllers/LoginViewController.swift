@@ -8,15 +8,23 @@
 import UIKit
 import SnapKit
 
+//protocol ClearingTextFields: AnyObject {
+//	func clear(loginTF: String, passwordTF: String)
+//}
+
 final class LoginViewController: UIViewController {
 	private let loginButton = UIButton()
 	private let reminderButton = UIButton()
 	// private let registerButton = UIButton()
+
 	private let user = User.getUserData()
+
 	// MARK: - Interface
 	public lazy var logoImageView: UIImageView = {
 		let imageView = UIImageView()
 		imageView.image = UIImage(named: "shutterstock_583717939")
+		imageView.layer.masksToBounds = true
+		imageView.layer.cornerRadius = 8
 		return imageView
 	}()
 	public lazy var loginTextField: CustomTextField = {
@@ -99,7 +107,16 @@ final class LoginViewController: UIViewController {
 		configureSubmitButton()
 		configureReminderButton()
 		// configureRegisterButton()
+		
 	}
+	
+// MARK: - Clearing Login Data
+	override func viewWillAppear(_ animated: Bool) {
+		super.viewWillAppear(animated)
+		loginTextField.text = nil
+		passwordTextField.text = nil
+	}
+
 	// MARK: - Constraints
 	public func initializeConstraints() {
 		logoImageView.snp.makeConstraints { make in
@@ -154,11 +171,13 @@ final class LoginViewController: UIViewController {
 //		}
 //	}
 	// MARK: - Reminder
-	@objc private func reminderPressed() {
+	@objc
+	private func reminderPressed() {
 		showAlert(title: "Hello!",
 				  message: "Your login is \(user.login), Your password is \(user.password)")
 	}
-/*	@objc private func registerPressed() {
+/*	@objc
+ private func registerPressed() {
 		let registerVC = UINavigationController(rootViewController: RegisterViewController())
 //        detailVC.result = userName
 //        detailVC.title = userName.name
@@ -166,7 +185,8 @@ final class LoginViewController: UIViewController {
 		present(registerVC, animated: true)
 	} */
 	// MARK: - Log in
-	@objc func logInPressed() {
+	@objc
+	func logInPressed() {
 		guard
 			loginTextField.text == user.login,
 			passwordTextField.text == user.password
@@ -198,3 +218,11 @@ final class LoginViewController: UIViewController {
 		present(tabBarVC, animated: true)
 	}
 }
+
+//extension LoginViewController: ClearingTextFields {
+//	func clear(loginTF: String, passwordTF: String) {
+//		loginTextField.text = loginTF
+//		passwordTextField.text = passwordTF
+//
+//	}
+//}
